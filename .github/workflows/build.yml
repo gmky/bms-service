@@ -42,9 +42,6 @@ jobs:
     name: Build ARM Docker Image (arm64)
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - name: Checkout
@@ -68,12 +65,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-arm64
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch,suffix=-arm64
+            type=ref,event=pr,suffix=-arm64
+            type=sha,prefix={{branch}}-,suffix=-arm64
+            type=raw,value=latest,suffix=-arm64,enable={{is_default_branch}}
 
       - name: Build and push ARM64 image
         uses: docker/build-push-action@v6
@@ -90,9 +87,6 @@ jobs:
     name: Build Docker Image (amd64)
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - name: Checkout
@@ -182,7 +176,7 @@ jobs:
             sed -i "s/IMAGE_OWNER=.*/IMAGE_OWNER=${IMAGE_OWNER}/" .env
 
             echo "=== Pulling image ==="
-            docker pull ghcr.io/${IMAGE_OWNER}/bms-service-arm64:${IMAGE_TAG}
+            docker pull ghcr.io/${IMAGE_OWNER}/bms-service:${IMAGE_TAG}-arm64
 
             echo "=== Restarting service ==="
             docker compose down bms-service 2>/dev/null || true
