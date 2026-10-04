@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd">
+
+    <changeSet id="20260908-create-resource" author="HiepVH">
+        <createTable tableName="RESOURCE">
+            <column name="ID" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="RESOURCE_NAME" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="RESOURCE_CODE" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(500)"/>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="RESOURCE"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="20260908-insert-resource-data" author="HiepVH">
+        <sql>
+            INSERT INTO RESOURCE (ID, RESOURCE_NAME, RESOURCE_CODE, DESCRIPTION) VALUES
+            (UUID(), 'Entitlement', 'entitlement', 'Entitlement resource for access control');
+        </sql>
+
+        <rollback>
+            <delete tableName="RESOURCE">
+                <where>RESOURCE_CODE = 'entitlement'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

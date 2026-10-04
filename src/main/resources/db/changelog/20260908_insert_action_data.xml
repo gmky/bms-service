@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd">
+
+    <changeSet id="20260908-insert-action-data" author="HiepVH">
+        <insert tableName="ACTION">
+            <column name="ID" valueUUID="00000000-0000-0000-0000-000000000001"/>
+            <column name="CODE" value="VIEW"/>
+        </insert>
+        <insert tableName="ACTION">
+            <column name="ID" valueUUID="00000000-0000-0000-0000-000000000002"/>
+            <column name="CODE" value="CREATE"/>
+        </insert>
+        <insert tableName="ACTION">
+            <column name="ID" valueUUID="00000000-0000-0000-0000-000000000003"/>
+            <column name="CODE" value="UPDATE"/>
+        </insert>
+        <insert tableName="ACTION">
+            <column name="ID" valueUUID="00000000-0000-0000-0000-000000000004"/>
+            <column name="CODE" value="DELETE"/>
+        </insert>
+        <insert tableName="ACTION">
+            <column name="ID" valueUUID="00000000-0000-0000-0000-000000000005"/>
+            <column name="CODE" value="EXECUTE"/>
+        </insert>
+        <insert tableName="ACTION">
+            <column name="ID" valueUUID="00000000-0000-0000-0000-000000000006"/>
+            <column name="CODE" value="APPROVE"/>
+        </insert>
+        <insert tableName="ACTION">
+            <column name="ID" valueUUID="00000000-0000-0000-0000-000000000007"/>
+            <column name="CODE" value="DOWNLOAD"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="ACTION">
+                <where>CODE IN ('VIEW', 'CREATE', 'UPDATE', 'DELETE', 'EXECUTE', 'APPROVE', 'DOWNLOAD')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

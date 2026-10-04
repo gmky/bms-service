@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="db/changelog/20260908_create_service_agreement.xml"/>
+    <include file="db/changelog/20260908_create_action.xml"/>
+    <include file="db/changelog/20260908_create_business_function.xml"/>
+    <include file="db/changelog/20260908_create_resource.xml"/>
+    <include file="db/changelog/20260908_create_user_context.xml"/>
+    <include file="db/changelog/20260908_create_job_role.xml"/>
+    <include file="db/changelog/20260908_create_privilege.xml"/>
+    <include file="db/changelog/20260908_create_data_group.xml"/>
+    <include file="db/changelog/20260908_create_user_assigned_job_role.xml"/>
+    <include file="db/changelog/20260908_create_job_role_item.xml"/>
+    <include file="db/changelog/20260908_create_user_assigned_data_group.xml"/>
+    <include file="db/changelog/20260908_create_data_group_item.xml"/>
+
+</databaseChangeLog>

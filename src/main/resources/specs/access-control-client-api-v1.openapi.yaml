@@ -1,0 +1,12 @@
+openapi: 3.0.3
+info:
+  title: BMS - Access Control Client APIs V1
+  description: BMS - Access Control Client APIs V1
+  contact:
+    email: hiepvh.dev@gmail.com
+  version: 1.0.0
+servers:
+  - description: LOCAL
+    url: http://localhost:8080
+paths: {}
+components: {}

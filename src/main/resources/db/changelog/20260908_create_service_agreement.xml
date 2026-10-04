@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd">
+
+    <changeSet id="20260908-create-service-agreement" author="HiepVH">
+        <createTable tableName="SERVICE_AGREEMENT">
+            <column name="ID" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EXTERNAL_ID" type="VARCHAR(64)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(500)"/>
+            <column name="STATE" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START_DATE" type="DATETIME"/>
+            <column name="END_DATE" type="DATETIME"/>
+            <column name="STATE_CHANGED_AT" type="DATETIME"/>
+            <column name="CREATED_AT" type="DATETIME"/>
+            <column name="UPDATED_AT" type="DATETIME"/>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="SERVICE_AGREEMENT"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

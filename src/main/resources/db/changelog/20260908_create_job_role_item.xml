@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd">
+
+    <changeSet id="20260908-create-job-role-item" author="HiepVH">
+        <createTable tableName="JOB_ROLE_ITEM">
+            <column name="ID" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="JOB_ROLE_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRIVILEGE_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="JOB_ROLE_ITEM"
+                                baseColumnNames="JOB_ROLE_ID"
+                                referencedTableName="JOB_ROLE"
+                                referencedColumnNames="ID"
+                                constraintName="FK_JOB_ROLE_ITEM_JOB_ROLE"/>
+
+        <addForeignKeyConstraint baseTableName="JOB_ROLE_ITEM"
+                                baseColumnNames="PRIVILEGE_ID"
+                                referencedTableName="PRIVILEGE"
+                                referencedColumnNames="ID"
+                                constraintName="FK_JOB_ROLE_ITEM_PRIVILEGE"/>
+
+        <rollback>
+            <dropTable tableName="JOB_ROLE_ITEM"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: bms-service
+  datasource:
+    url: ${APP_DATASOURCE_URL:}
+    username: ${APP_DATASOURCE_USERNAME:}
+    password: ${APP_DATASOURCE_PASSWORD:}
+    hikari:
+      pool-name: bms-pool
+      maximum-pool-size: 20
+      minimum-idle: 5
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        globally_quoted_identifiers: true
+        globally_quoted_identifiers_skip_column_definitions: true
+    open-in-view: false
+  data:
+    redis:
+      host: ${APP_REDIS_HOST:}
+      port: ${APP_REDIS_PORT:}
+      username: ${APP_REDIS_USERNAME:}
+      password: ${APP_REDIS_PASSWORD:}
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${APP_SECURITY_KEYCLOAK_ISSUER_URI:}
+  cache:
+    type: redis
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+app:
+  cache:
+    default-ttl: 30
+  security:
+    public-paths:
+      - /error
+      - /v3/api-docs/**
+      - /swagger-ui/**

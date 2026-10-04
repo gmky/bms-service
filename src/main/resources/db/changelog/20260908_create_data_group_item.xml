@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd">
+
+    <changeSet id="20260908-create-data-group-item" author="HiepVH">
+        <createTable tableName="DATA_GROUP_ITEM">
+            <column name="ID" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="DATA_GROUP_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATA_ITEM_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="DATA_GROUP_ITEM"
+                                baseColumnNames="DATA_GROUP_ID"
+                                referencedTableName="DATA_GROUP"
+                                referencedColumnNames="ID"
+                                constraintName="FK_DATA_GROUP_ITEM_DATA_GROUP"/>
+
+        <rollback>
+            <dropTable tableName="DATA_GROUP_ITEM"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd">
+
+    <changeSet id="20260908-create-user-assigned-job-role" author="HiepVH">
+        <createTable tableName="USER_ASSIGNED_JOB_ROLE">
+            <column name="ID" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="USER_CONTEXT_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="JOB_ROLE_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_AT" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_AT" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED_BY" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="USER_ASSIGNED_JOB_ROLE"
+                                baseColumnNames="USER_CONTEXT_ID"
+                                referencedTableName="USER_CONTEXT"
+                                referencedColumnNames="ID"
+                                constraintName="FK_USER_ASSIGNED_JOB_ROLE_USER_CONTEXT"/>
+
+        <addForeignKeyConstraint baseTableName="USER_ASSIGNED_JOB_ROLE"
+                                baseColumnNames="JOB_ROLE_ID"
+                                referencedTableName="JOB_ROLE"
+                                referencedColumnNames="ID"
+                                constraintName="FK_USER_ASSIGNED_JOB_ROLE_JOB_ROLE"/>
+
+        <rollback>
+            <dropTable tableName="USER_ASSIGNED_JOB_ROLE"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
