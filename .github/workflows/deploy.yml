@@ -14,6 +14,8 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
+  IMAGE_TAG: ${{ github.sha }}
+  IMAGE_REPO: ${{ github.repository }}
 
 jobs:
   build:
@@ -123,9 +125,6 @@ jobs:
           username: ${{ vars.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           envs: IMAGE_TAG,IMAGE_REPO
-          env: |
-            IMAGE_TAG=${{ github.sha }}
-            IMAGE_REPO=${{ github.repository }}
           script: |
             set -e
 
