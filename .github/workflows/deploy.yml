@@ -122,10 +122,10 @@ jobs:
           port: ${{ vars.SSH_PORT }}
           username: ${{ vars.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: IMAGE_TAG,IMAGE_OWNER
+          envs: IMAGE_TAG,IMAGE_REPO
           env: |
             IMAGE_TAG=${{ github.sha }}
-            IMAGE_OWNER=${{ github.repository_owner }}
+            IMAGE_REPO=${{ github.repository }}
           script: |
             set -e
 
@@ -139,14 +139,14 @@ jobs:
 
             # Update image tag in .env
             sed -i "s/IMAGE_TAG=.*/IMAGE_TAG=${IMAGE_TAG}/" .env
-            sed -i "s/IMAGE_OWNER=.*/IMAGE_OWNER=${IMAGE_OWNER}/" .env
+            sed -i "s/IMAGE_REPO=.*/IMAGE_REPO=${IMAGE_REPO}/" .env
 
             echo "=== Pulling image ==="
-            docker pull ghcr.io/${IMAGE_OWNER}/bms-service/bms-service:${IMAGE_TAG}
+            docker pull ghcr.io/${IMAGE_REPO}:${IMAGE_TAG}
 
             echo "=== Restarting service ==="
             docker compose down bms-service 2>/dev/null || true
-            IMAGE_TAG=${IMAGE_TAG} IMAGE_OWNER=${IMAGE_OWNER} docker compose up -d bms-service
+            IMAGE_TAG=${IMAGE_TAG} IMAGE_REPO=${IMAGE_REPO} docker compose up -d bms-service
 
             echo "=== Container status ==="
             docker compose ps
