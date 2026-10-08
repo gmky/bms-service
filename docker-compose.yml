@@ -1,6 +1,6 @@
 services:
   bms-service:
-    image: ghcr.io/${IMAGE_OWNER}/bms-service-arm64:${IMAGE_TAG:-latest}
+    image: ghcr.io/${IMAGE_OWNER}/bms-service/bms-service:${IMAGE_TAG:-latest}
     container_name: bms-service
     restart: unless-stopped
     networks:
