@@ -140,14 +140,17 @@ jobs:
           ssh-keyscan -p ${{ vars.SSH_PORT }} -H ${{ vars.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
 
       - name: Sync files to server
-        run: |
-          rsync -avz \
-            -e "ssh -p ${{ vars.SSH_PORT }} -o StrictHostKeyChecking=no" \
-            --include='docker-compose.yml' \
-            --include='.env.example' \
-            --exclude='*' \
-            ./ \
-            ${{ vars.SSH_USER }}@${{ vars.SSH_HOST }}:/home/opc/bms-service/
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ vars.SSH_HOST }}
+          port: ${{ vars.SSH_PORT }}
+          username: ${{ vars.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          strip_components: 0
+          source: |
+            docker-compose.yml
+            .env.example
+          target: /home/opc/bms-service/
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1
