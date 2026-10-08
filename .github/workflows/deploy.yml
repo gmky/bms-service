@@ -136,6 +136,7 @@ jobs:
 
       - name: Add server to known hosts
         run: |
+          mkdir -p ~/.ssh
           ssh-keyscan -p ${{ vars.SSH_PORT }} -H ${{ vars.SSH_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
 
       - name: Sync files to server
@@ -175,7 +176,7 @@ jobs:
             sed -i "s/IMAGE_OWNER=.*/IMAGE_OWNER=${IMAGE_OWNER}/" .env
 
             echo "=== Pulling image ==="
-            docker pull ghcr.io/${IMAGE_OWNER}/bms-service:${IMAGE_TAG}-arm64
+            docker pull ghcr.io/${IMAGE_OWNER}/bms-service/bms-service:${IMAGE_TAG}-arm64
 
             echo "=== Restarting service ==="
             docker compose down bms-service 2>/dev/null || true
