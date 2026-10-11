@@ -141,7 +141,7 @@ jobs:
             sed -i "s|IMAGE_REPO=.*|IMAGE_REPO=${IMAGE_REPO}|" .env
 
             echo "=== Pulling image ==="
-            docker pull ghcr.io/${IMAGE_REPO}:${IMAGE_TAG}
+            docker pull ghcr.io/${IMAGE_REPO}/bms-service:${IMAGE_TAG}
 
             echo "=== Restarting service ==="
             docker compose down bms-service 2>/dev/null || true
