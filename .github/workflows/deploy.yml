@@ -14,7 +14,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_TAG: ${{ github.sha }}
+  IMAGE_TAG: ${{ github.ref_name }}-${{ github.sha }}
   IMAGE_REPO: ${{ github.repository }}
 
 jobs:
