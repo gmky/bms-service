@@ -137,8 +137,8 @@ jobs:
             fi
 
             # Update image tag in .env
-            sed -i "s/IMAGE_TAG=.*/IMAGE_TAG=${IMAGE_TAG}/" .env
-            sed -i "s/IMAGE_REPO=.*/IMAGE_REPO=${IMAGE_REPO}/" .env
+            sed -i "s|IMAGE_TAG=.*|IMAGE_TAG=${IMAGE_TAG}|" .env
+            sed -i "s|IMAGE_REPO=.*|IMAGE_REPO=${IMAGE_REPO}|" .env
 
             echo "=== Pulling image ==="
             docker pull ghcr.io/${IMAGE_REPO}:${IMAGE_TAG}
