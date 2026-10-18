@@ -38,7 +38,28 @@ springdoc:
     enabled: true
   swagger-ui:
     enabled: true
-
+management:
+  server:
+    port: 8081
+    endpoints:
+      web:
+        exposure:
+          include: health,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  otlp:
+    metrics:
+      export:
+        enabled: false        # the starter includes an OTLP metrics exporter; Prometheus scrapes instead
+  tracing:
+    sampling:
+      probability: 0.1        # 1.0 while testing
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: http://tempo:4318/v1/traces
 app:
   cache:
     default-ttl: 30
@@ -47,3 +68,5 @@ app:
       - /error
       - /v3/api-docs/**
       - /swagger-ui/**
+      - /actuator/health/**
+      - /actuator/prometheus
