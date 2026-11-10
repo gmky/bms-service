@@ -2,6 +2,7 @@ package io.kalenz.bms.config;
 
 import io.kalenz.bms.properties.AppProperties;
 import io.kalenz.bms.security.KeycloakAuthenticationConverter;
+import io.kalenz.bms.security.UserContextHeaderFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Slf4j
 @Configuration
@@ -26,7 +28,8 @@ public class SecurityConfig {
     private final AppProperties appProperties;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                                   UserContextHeaderFilter userContextHeaderFilter) throws Exception {
 
         return http
                 .cors(Customizer.withDefaults())
@@ -40,6 +43,7 @@ public class SecurityConfig {
                     req.anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(authenticationConverter())))
+                .addFilterBefore(userContextHeaderFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

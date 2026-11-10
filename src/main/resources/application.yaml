@@ -2,9 +2,9 @@ spring:
   application:
     name: bms-service
   datasource:
-    url: ${APP_DATASOURCE_URL:}
-    username: ${APP_DATASOURCE_USERNAME:}
-    password: ${APP_DATASOURCE_PASSWORD:}
+    url: ${APP_DATASOURCE_URL:jdbc:mysql://localhost:3306/bms}
+    username: ${APP_DATASOURCE_USERNAME:bms}
+    password: ${APP_DATASOURCE_PASSWORD:b15dcpt082}
     hikari:
       pool-name: bms-pool
       maximum-pool-size: 20
@@ -19,8 +19,8 @@ spring:
     open-in-view: false
   data:
     redis:
-      host: ${APP_REDIS_HOST:}
-      port: ${APP_REDIS_PORT:}
+      host: ${APP_REDIS_HOST:localhost}
+      port: ${APP_REDIS_PORT:6379}
       username: ${APP_REDIS_USERNAME:}
       password: ${APP_REDIS_PASSWORD:}
   liquibase:
@@ -30,7 +30,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${APP_SECURITY_KEYCLOAK_ISSUER_URI:}
+          issuer-uri: ${APP_SECURITY_KEYCLOAK_ISSUER_URI:httpis://identity.gmky.dev/realms/kalenz}
   cache:
     type: redis
 springdoc:
